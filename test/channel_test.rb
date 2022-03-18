@@ -9,9 +9,9 @@ class ChannelTest < MiniTest::Test
   end
 
   def test_that_a_scraped_youtube_channel_has_proper_attributes
-    youtube_channel = Youtubearchiver::Channel.lookup("UC_x5XG1OV2P6uZZ5FSM9Ttw").first
+    youtube_channel = YoutubeArchiver::Channel.lookup("UC_x5XG1OV2P6uZZ5FSM9Ttw").first
 
-    assert_instance_of Youtubearchiver::Channel, youtube_channel
+    assert_instance_of YoutubeArchiver::Channel, youtube_channel
 
     assert_equal youtube_channel.id, "UC_x5XG1OV2P6uZZ5FSM9Ttw"
     assert_equal youtube_channel.title, "Google Developers"
@@ -25,8 +25,8 @@ class ChannelTest < MiniTest::Test
   end
 
   def test_raises_exception_for_nonexistent_videos
-    assert_raises Youtubearchiver::ChannelNotFoundError do
-      Youtubearchiver::Channel.lookup("abcde12345")
+    assert_raises YoutubeArchiver::ChannelNotFoundError do
+      YoutubeArchiver::Channel.lookup("abcde12345")
     end
   end
 end

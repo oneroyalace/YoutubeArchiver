@@ -9,9 +9,9 @@ class VideoTest < MiniTest::Test
   end
 
   def test_that_a_scraped_youtube_video_has_proper_attributes
-    youtube_video = Youtubearchiver::Video.lookup("T3UVKJsTz5g").first
+    youtube_video = YoutubeArchiver::Video.lookup("T3UVKJsTz5g").first
 
-    assert_instance_of Youtubearchiver::Video, youtube_video
+    assert_instance_of YoutubeArchiver::Video, youtube_video
 
     assert_equal youtube_video.id, "T3UVKJsTz5g"
     assert_equal youtube_video.title, "Reviewing Injury Reserve's By the Time I Get to Phoenix in 10 seconds or less"
@@ -30,9 +30,9 @@ class VideoTest < MiniTest::Test
   end
 
   def test_handles_youtube_shorts
-    youtube_video = Youtubearchiver::Video.lookup("cipFChOXDBM").first
+    youtube_video = YoutubeArchiver::Video.lookup("cipFChOXDBM").first
 
-    assert_instance_of Youtubearchiver::Video, youtube_video
+    assert_instance_of YoutubeArchiver::Video, youtube_video
     assert_not_nil youtube_video.title
 
     assert_not_nil youtube_video.author
@@ -40,9 +40,9 @@ class VideoTest < MiniTest::Test
   end
 
   def test_handles_live_youtube_videos
-    youtube_video = Youtubearchiver::Video.lookup("nDDzUyGvloE").first
+    youtube_video = YoutubeArchiver::Video.lookup("nDDzUyGvloE").first
 
-    assert_instance_of Youtubearchiver::Video, youtube_video
+    assert_instance_of YoutubeArchiver::Video, youtube_video
     assert youtube_video.live
     assert_not_nil youtube_video.title
     assert_nil youtube_video.video_file_name
@@ -52,8 +52,8 @@ class VideoTest < MiniTest::Test
   end
 
   def test_raises_exception_for_nonexistent_videos
-    assert_raises Youtubearchiver::VideoNotFoundError do
-      Youtubearchiver::Video.lookup("abcde12345")
+    assert_raises YoutubeArchiver::VideoNotFoundError do
+      YoutubeArchiver::Video.lookup("abcde12345")
     end
   end
 end

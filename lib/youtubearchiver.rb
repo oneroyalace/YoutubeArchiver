@@ -11,7 +11,7 @@ require_relative "youtubearchiver/version"
 require_relative "youtubearchiver/video"
 require_relative "youtubearchiver/channel"
 
-module Youtubearchiver
+module YoutubeArchiver
   extend Configuration
 
   class Error < StandardError; end
@@ -33,7 +33,7 @@ module Youtubearchiver
       extension = ".#{extension}" unless extension.nil?
     end
 
-    temp_file_name = "#{Youtubearchiver.temp_storage_location}/#{SecureRandom.uuid}#{extension}"
+    temp_file_name = "#{YoutubeArchiver.temp_storage_location}/#{SecureRandom.uuid}#{extension}"
 
     # We do this in case the folder isn't created yet, since it's a temp folder we'll just do so
     create_temp_storage_location
@@ -42,8 +42,8 @@ module Youtubearchiver
   end
 
   def self.create_temp_storage_location
-    return if File.exist?(Youtubearchiver.temp_storage_location) && File.directory?(Youtubearchiver.temp_storage_location)
+    return if File.exist?(YoutubeArchiver.temp_storage_location) && File.directory?(YoutubeArchiver.temp_storage_location)
 
-    FileUtils.mkdir_p Youtubearchiver.temp_storage_location
+    FileUtils.mkdir_p YoutubeArchiver.temp_storage_location
   end
 end

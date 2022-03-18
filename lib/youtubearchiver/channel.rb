@@ -5,17 +5,17 @@ require "securerandom"
 
 require "youtube-dl"
 
-module Youtubearchiver
+module YoutubeArchiver
   class Channel
     def self.lookup(ids = [])
       ids = [ids] unless ids.is_a?(Array)
 
-      # ids.each { |id| raise Youtubearchiver::InvalidIdError unless /\A\d+\z/.match(id) }
+      # ids.each { |id| raise YoutubeArchiver::InvalidIdError unless /\A\d+\z/.match(id) }
       response = retrieve_data(ids)
-      raise Youtubearchiver::AuthorizationError, "Invalid response code #{response.code}" unless response.code == 200
+      raise YoutubeArchiver::AuthorizationError, "Invalid response code #{response.code}" unless response.code == 200
 
       json_response = JSON.parse(response.body)
-      raise Youtubearchiver::ChannelNotFoundError if json_response["items"].nil? || json_response["items"].empty?
+      raise YoutubeArchiver::ChannelNotFoundError if json_response["items"].nil? || json_response["items"].empty?
 
       json_response["items"].map { |json_channel| Channel.new(json_channel) }
     end
@@ -44,7 +44,7 @@ module Youtubearchiver
       @subscriber_count = json_channel["statistics"]["subscriberCount"]
       @video_count = json_channel["statistics"]["videoCount"]
       @made_for_kids = json_channel["status"]["madeForKids"]
-      @channel_image_file_name = Youtubearchiver.retrieve_media(json_channel["snippet"]["thumbnails"]["high"]["url"])
+      @channel_image_file_name = YoutubeArchiver.retrieve_media(json_channel["snippet"]["thumbnails"]["high"]["url"])
     end
 
     def self.retrieve_data(ids)
@@ -57,7 +57,7 @@ module Youtubearchiver
       }
 
       response = channel_lookup(channel_api_url, params)
-      raise Youtubearchiver::AuthorizationError, "Invalid response code #{response.code}" unless response.code == 200
+      raise YoutubeArchiver::AuthorizationError, "Invalid response code #{response.code}" unless response.code == 200
 
       response
     end
@@ -70,7 +70,7 @@ module Youtubearchiver
 
       request = Typhoeus::Request.new(url, options)
       response = request.run
-      raise Youtubearchiver::AuthorizationError, "Invalid response code #{response.code}" unless response.code == 200
+      raise YoutubeArchiver::AuthorizationError, "Invalid response code #{response.code}" unless response.code == 200
 
       response
     end

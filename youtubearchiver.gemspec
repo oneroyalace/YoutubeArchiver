@@ -4,7 +4,7 @@ require_relative "lib/youtubearchiver/version"
 
 Gem::Specification.new do |spec|
   spec.name          = "youtubearchiver"
-  spec.version       = Youtubearchiver::VERSION
+  spec.version       = YoutubeArchiver::VERSION
   spec.authors       = ["oneroyalace"]
   spec.email         = ["oneroyalace@gmail.com"]
 
