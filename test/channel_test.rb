@@ -21,7 +21,7 @@ class ChannelTest < MiniTest::Test
     assert youtube_channel.subscriber_count.to_i > 2_000_000
     assert youtube_channel.video_count.to_i > 5000
 
-    assert_not_nil youtube_channel.channel_image_file_name
+    assert_not_nil youtube_channel.channel_image_file
   end
 
   def test_raises_exception_for_nonexistent_videos

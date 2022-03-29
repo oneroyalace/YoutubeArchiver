@@ -24,16 +24,15 @@ module YoutubeArchiver
     attr_reader :id
     attr_reader :created_at
     attr_reader :title
-    attr_reader :channel_id
     attr_reader :language
     attr_reader :duration
     attr_reader :num_views
     attr_reader :num_likes
     attr_reader :num_comments
     attr_reader :live
-    attr_reader :video_preview_image_file_name
-    attr_reader :video_file_name
-    attr_reader :author
+    attr_reader :video_preview_image_file
+    attr_reader :video_file
+    attr_reader :channel
 
     def initialize(json_video)
       @json = json_video
@@ -51,9 +50,9 @@ module YoutubeArchiver
       @num_views = json_video["statistics"]["viewCount"]
       @num_likes = json_video["statistics"]["likeCount"]
       @num_comments = json_video["statistics"]["commentCount"]
-      @video_preview_image_file_name = YoutubeArchiver.retrieve_media(json_video["snippet"]["thumbnails"]["high"]["url"])
-      @video_file_name = download_video
-      @author = Channel.lookup(@channel_id).first
+      @video_preview_image_file = YoutubeArchiver.retrieve_media(json_video["snippet"]["thumbnails"]["high"]["url"])
+      @video_file = download_video
+      @channel = Channel.lookup(@channel_id).first
     end
 
     def download_video
@@ -62,7 +61,7 @@ module YoutubeArchiver
       puts "Downloading video #{@id} @ #{Time.now}"
       video_url = "https://www.youtube.com/watch?v=#{@id}"
       filename = "#{YoutubeArchiver.temp_storage_location}/#{SecureRandom.uuid}.mp4"
-      YoutubeDL.download(video_url, output: filename)
+      YoutubeDL.download(video_url, output: filename, format: "mp4")
       puts "Finished downloading video #{@id} @ #{Time.now}"
       filename
     end

@@ -19,14 +19,14 @@ class VideoTest < MiniTest::Test
     assert_equal youtube_video.duration, "PT10S"
     assert_equal youtube_video.language, "en-US"
     assert_equal youtube_video.channel_id, "UCyPVt0WxkrpUXOVUq0Hqtxw"
-    assert_not_nil youtube_video.author
+    assert_not_nil youtube_video.channel
 
     assert youtube_video.num_views.to_i > 40_000
     assert youtube_video.num_likes.to_i > 3_000
     assert youtube_video.num_comments.to_i > 100
 
-    assert_not_nil youtube_video.video_preview_image_file_name
-    assert_not_nil youtube_video.video_file_name
+    assert_not_nil youtube_video.video_preview_image_file
+    assert_not_nil youtube_video.video_file
   end
 
   def test_handles_youtube_shorts
@@ -35,8 +35,8 @@ class VideoTest < MiniTest::Test
     assert_instance_of YoutubeArchiver::Video, youtube_video
     assert_not_nil youtube_video.title
 
-    assert_not_nil youtube_video.author
-    assert_equal youtube_video.author.id, "UCWheC07UYzRWXsv9yUnZJFw"
+    assert_not_nil youtube_video.channel
+    assert_equal youtube_video.channel.id, "UCWheC07UYzRWXsv9yUnZJFw"
   end
 
   def test_handles_live_youtube_videos
@@ -45,10 +45,10 @@ class VideoTest < MiniTest::Test
     assert_instance_of YoutubeArchiver::Video, youtube_video
     assert youtube_video.live
     assert_not_nil youtube_video.title
-    assert_nil youtube_video.video_file_name
+    assert_nil youtube_video.video_file
 
-    assert_not_nil youtube_video.author
-    assert_equal youtube_video.author.id, "UCGv9D6jI_5qb12RzoEU4aEA"
+    assert_not_nil youtube_video.channel
+    assert_equal youtube_video.channel.id, "UCGv9D6jI_5qb12RzoEU4aEA"
   end
 
   def test_raises_exception_for_nonexistent_videos

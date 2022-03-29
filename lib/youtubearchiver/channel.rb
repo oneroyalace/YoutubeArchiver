@@ -28,7 +28,7 @@ module YoutubeArchiver
     attr_reader :subscriber_count
     attr_reader :video_count
     attr_reader :made_for_kids
-    attr_reader :channel_image_file_name
+    attr_reader :channel_image_file
 
     def initialize(json_channel)
       @json = json_channel
@@ -44,7 +44,7 @@ module YoutubeArchiver
       @subscriber_count = json_channel["statistics"]["subscriberCount"]
       @video_count = json_channel["statistics"]["videoCount"]
       @made_for_kids = json_channel["status"]["madeForKids"]
-      @channel_image_file_name = YoutubeArchiver.retrieve_media(json_channel["snippet"]["thumbnails"]["high"]["url"])
+      @channel_image_file = YoutubeArchiver.retrieve_media(json_channel["snippet"]["thumbnails"]["high"]["url"])
     end
 
     def self.retrieve_data(ids)
