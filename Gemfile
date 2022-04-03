@@ -15,4 +15,4 @@ gem "byebug"
 
 gem "typhoeus"
 
-gem "youtube-dl.rb"
+gem "terrapin"

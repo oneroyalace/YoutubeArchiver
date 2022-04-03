@@ -3,8 +3,6 @@
 require "byebug"
 require "securerandom"
 
-require "youtube-dl"
-
 module YoutubeArchiver
   class Channel
     def self.lookup(ids = [])

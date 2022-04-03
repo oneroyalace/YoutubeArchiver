@@ -3,7 +3,7 @@
 require "securerandom"
 
 require "byebug"
-require "youtube-dl"
+require "terrapin"
 
 module YoutubeArchiver
   class Video
@@ -32,6 +32,7 @@ module YoutubeArchiver
     attr_reader :live
     attr_reader :video_preview_image_file
     attr_reader :video_file
+    attr_reader :made_for_kids
     attr_reader :channel
 
     def initialize(json_video)
@@ -52,16 +53,20 @@ module YoutubeArchiver
       @num_comments = json_video["statistics"]["commentCount"]
       @video_preview_image_file = YoutubeArchiver.retrieve_media(json_video["snippet"]["thumbnails"]["high"]["url"])
       @video_file = download_video
+      @made_for_kids = json_video["status"]["madeForKids"]
       @channel = Channel.lookup(@channel_id).first
     end
 
     def download_video
       return if @live
 
-      puts "Downloading video #{@id} @ #{Time.now}"
-      video_url = "https://www.youtube.com/watch?v=#{@id}"
       filename = "#{YoutubeArchiver.temp_storage_location}/#{SecureRandom.uuid}.mp4"
-      YoutubeDL.download(video_url, output: filename, format: "mp4")
+      line = Terrapin::CommandLine.new("yt-dlp", "-f :filetype -o :filename :url")
+
+      puts "Downloading video #{@id} @ #{Time.now}"
+      line.run(filename:,
+               filetype: "mp4",
+               url: "https://www.youtube.com/watch?v=#{@id}")
       puts "Finished downloading video #{@id} @ #{Time.now}"
       filename
     end
@@ -70,7 +75,7 @@ module YoutubeArchiver
       api_key = ENV["YOUTUBE_API_KEY"]
       youtube_base_url = "https://youtube.googleapis.com/youtube/v3/videos/"
       params = {
-        "part": "contentDetails,snippet,statistics",
+        "part": "contentDetails,snippet,statistics,status",
         "id": ids.join(","),
         "key": api_key
       }
