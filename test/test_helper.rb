@@ -11,7 +11,13 @@ end
 
 require "minitest/assertions"
 module Minitest::Assertions
+  # Borrowed from Rails: File activesupport/lib/active_support/testing/assertions.rb, line 19
+  def assert_not(object, message = nil)
+    message ||= "Expected #{mu_pp(object)} to be nil or false"
+    assert !object, message # rubocop:disable Rails/AssertNot
+  end
+
   def assert_not_nil(object)
-    assert object.nil? == false, "Expected a non-nil object but received nil"
+    assert_not object.nil?, "Expected a non-nil object but received nil"
   end
 end

@@ -3,14 +3,31 @@ name: Ruby
 on: [push,pull_request]
 
 jobs:
-  build:
+  lint:
     runs-on: ubuntu-latest
+    env:
+      YOUTUBE_API_KEY: ${{secrets.YOUTUBE_API_KEY}}
     steps:
     - uses: actions/checkout@v2
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1
       with:
-        ruby-version: 3.0.2
+        ruby-version: 3.1.1
         bundler-cache: true
+    - name: Lint with Rubocop
+      run: bundle exec rubocop
+  build:
+    runs-on: ubuntu-latest
+    env:
+      YOUTUBE_API_KEY: ${{secrets.YOUTUBE_API_KEY}}
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: 3.1.1
+        bundler-cache: true
+    - name: Install yt-dlp
+      run: python3 -m pip install -U yt-dlp
     - name: Run the default task
       run: bundle exec rake
