@@ -5,7 +5,7 @@ on: [push,pull_request]
 jobs:
   lint:
     runs-on: ubuntu-latest
-    environment: testing
+    environment: Testing
     steps:
     - uses: actions/checkout@v2
     - name: Set up Ruby
@@ -17,7 +17,7 @@ jobs:
       run: bundle exec rubocop
   build:
     runs-on: ubuntu-latest
-    environment: testing
+    environment: Testing
     steps:
     - uses: actions/checkout@v2
     - name: Set up Ruby
