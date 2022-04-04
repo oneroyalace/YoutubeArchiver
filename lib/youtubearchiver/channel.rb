@@ -5,6 +5,9 @@ require "securerandom"
 
 module YoutubeArchiver
   class Channel
+    attr_reader :id, :created_at, :title, :description, :view_count, :subscriber_count,
+                :video_count, :made_for_kids, :channel_image_file
+
     def self.lookup(ids = [])
       ids = [ids] unless ids.is_a?(Array)
 
@@ -17,16 +20,6 @@ module YoutubeArchiver
 
       json_response["items"].map { |json_channel| Channel.new(json_channel) }
     end
-
-    attr_reader :id
-    attr_reader :created_at
-    attr_reader :title
-    attr_reader :description
-    attr_reader :view_count
-    attr_reader :subscriber_count
-    attr_reader :video_count
-    attr_reader :made_for_kids
-    attr_reader :channel_image_file
 
     def initialize(json_channel)
       @json = json_channel
