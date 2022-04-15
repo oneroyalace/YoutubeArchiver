@@ -1,3 +1,19 @@
+# Installation
+
+Add this line to your application's Gemfile:
+
+```ruby
+gem 'youtubearchiver'
+```
+
+And then execute:
+
+    $ bundle install
+
+Or install it yourself as:
+
+    $ gem install youtubearchiver
+
 # Overview
 
 YoutubeArchiver is a Ruby gem that downloads YouTube Video metadata and media. It works in conjunction with [Zenodotus](https://github.com/TechAndCheck/zenodotus) and [Hypatia](https://github.com/TechAndCheck/hypatia) to archive fact-checked image/video posts. YoutubeArchiver exists alongside a collection of other media scrapers created by the Duke Reporter's Lab, including [Birdsong](https://github.com/cguess/birdsong/) (a Twitter scraper), [Zorki](https://github.com/cguess/zorki) (an Instagram scraper), and [Forki](https://github.com/TechAndCheck/forki) (a Facebook scraper). 
@@ -17,3 +33,4 @@ Like the other scrapers, Zorki follows a standard architecture created by @cgues
 
 ## Setting environment variables
 Set the `YOUTUBE_API_KEY` environment variable equal to the API key generated above. 
+
