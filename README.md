@@ -1,10 +1,10 @@
 # Overview
 
-YoutubeArchiver is a Ruby gem that downloads YouTube Video metadata and media. It works in connjunction with Zenodotus and Hypatia to archive fact-checked image/video posts. YoutubeArchiver exists alongside a collection of other media scrapers created by the Duke Reporter's Lab, including Birdsong (a Twitter scraper), Zorki (an Instagram scraper), and Forki (a Facebook scraper). 
+YoutubeArchiver is a Ruby gem that downloads YouTube Video metadata and media. It works in conjunction with [Zenodotus](https://github.com/TechAndCheck/zenodotus) and [Hypatia](https://github.com/TechAndCheck/hypatia) to archive fact-checked image/video posts. YoutubeArchiver exists alongside a collection of other media scrapers created by the Duke Reporter's Lab, including [Birdsong](https://github.com/cguess/birdsong/) (a Twitter scraper), [Zorki](https://github.com/cguess/zorki) (an Instagram scraper), and [Forki](https://github.com/TechAndCheck/forki) (a Facebook scraper). 
 
 Like the other scrapers, Zorki follows a standard architecture created by @cguess. The scraper is engaged by one of two methods: `Video.lookup` or `Channel.lookup`, which respectively return `YoutubeArchiver::Video` and `YoutubeArchiver::Channel` objects. These psuedo JSON object store video/channel metadata and media. 
 
-`YoutubeArchiver` differs from the other scrapers in how it acquires  media and metadata for a video or channel lookup. `YoutubeArchiver` uses [yt-dlp](https://github.com/yt-dlp/yt-dlp) to download video media files and the [YouTube Data API V3](https://developers.google.com/youtube/v3) to download channel and video metadata. For now, the project pecifically uses the API's [Videos: list](https://developers.google.com/youtube/v3/docs/videos/list) and [Channels: list](https://developers.google.com/youtube/v3/docs/channels/list) endpoints. 
+`YoutubeArchiver` differs from the other scrapers in how it acquires  media and metadata for a video or channel lookup. `YoutubeArchiver` uses [yt-dlp](https://github.com/yt-dlp/yt-dlp) to download video media files and the [YouTube Data API V3](https://developers.google.com/youtube/v3) to download channel and video metadata. For now, the project pecifically uses the Youtube API's [Videos: list](https://developers.google.com/youtube/v3/docs/videos/list) and [Channels: list](https://developers.google.com/youtube/v3/docs/channels/list) endpoints. 
 
 # Setup
 
