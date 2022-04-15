@@ -1,43 +1,19 @@
-# YoutubeArchiver
+# Overview
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/youtubearchiver`. To experiment with that code, run `bin/console` for an interactive prompt.
+YoutubeArchiver is a Ruby gem that downloads YouTube Video metadata and media. It works in connjunction with Zenodotus and Hypatia to archive fact-checked image/video posts. YoutubeArchiver exists alongside a collection of other media scrapers created by the Duke Reporter's Lab, including Birdsong (a Twitter scraper), Zorki (an Instagram scraper), and Forki (a Facebook scraper). 
 
-TODO: Delete this and the text above, and describe your gem
+Like the other scrapers, Zorki follows a standard architecture created by @cguess. The scraper is engaged by one of two methods: `Video.lookup` or `Channel.lookup`, which respectively return `YoutubeArchiver::Video` and `YoutubeArchiver::Channel` objects. These psuedo JSON object store video/channel metadata and media. 
 
-## Installation
+`YoutubeArchiver` differs from the other scrapers in how it acquires  media and metadata for a video or channel lookup. `YoutubeArchiver` uses [yt-dlp](https://github.com/yt-dlp/yt-dlp) to download video media files. To download video and channel metadata, the project uses the [YouTube Data API V3](https://developers.google.com/youtube/v3), specifically its [Videos: list](https://developers.google.com/youtube/v3/docs/videos/list) and [Channels: list](https://developers.google.com/youtube/v3/docs/channels/list) endpoints. 
 
-Add this line to your application's Gemfile:
+# Setup
 
-```ruby
-gem 'youtubearchiver'
-```
+## Acquiring a YouTube API key
 
-And then execute:
+1. [Create or select](https://console.cloud.google.com/projectselector2/home/dashboard?authuser=0&supportedpurview=project&pli=1) a Google Cloud Project  
+2. Find the [Youtube Data API v3](https://console.cloud.google.com/apis/api/youtube.googleapis.com/metrics?project=multi-scrobble-yt&authuser=0&supportedpurview=project) in the Google API marketplace. Enable the API. 
+3. Click on the credentials tab link in the YouTube API page sidebar. 
+4. Create an "API Key" credential. 
 
-    $ bundle install
-
-Or install it yourself as:
-
-    $ gem install youtubearchiver
-
-## Usage
-
-TODO: Write usage instructions here
-
-## Development
-
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
-
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and the created tag, and push the `.gem` file to [rubygems.org](https://rubygems.org).
-
-## Contributing
-
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/youtubearchiver. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/[USERNAME]/youtubearchiver/blob/master/CODE_OF_CONDUCT.md).
-
-## License
-
-The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
-
-## Code of Conduct
-
-Everyone interacting in the YoutubeArchiver project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/youtubearchiver/blob/master/CODE_OF_CONDUCT.md).
+## Setting environment variables
+Set the `YOUTUBE_API_KEY` environment variable equal to the API key generated above. 
