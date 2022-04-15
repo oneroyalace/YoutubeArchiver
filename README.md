@@ -28,8 +28,8 @@ Or install it yourself as:
 ## Acquiring a YouTube API key
 
 1. [Create or select](https://console.cloud.google.com/projectselector2/home/dashboard?authuser=0&supportedpurview=project&pli=1) a Google Cloud Project  
-2. Find the [Youtube Data API v3](https://console.cloud.google.com/apis/api/youtube.googleapis.com/metrics?project=multi-scrobble-yt&authuser=0&supportedpurview=project) in the Google API marketplace. Enable the API. 
-3. Click on the credentials tab link in the YouTube API page sidebar. 
+2. Find the [Youtube Data API v3](https://console.cloud.google.com/apis/api/youtube.googleapis.com/metrics?project=multi-scrobble-yt&authuser=0&supportedpurview=project) in the Google API marketplace. Enable the API for the selected project. 
+3. After enabling the API, click on the credentials tab link in the API page sidebar. 
 4. Create an "API Key" credential. 
 
 ## Setting environment variables
