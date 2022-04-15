@@ -4,7 +4,7 @@ YoutubeArchiver is a Ruby gem that downloads YouTube Video metadata and media. I
 
 Like the other scrapers, Zorki follows a standard architecture created by @cguess. The scraper is engaged by one of two methods: `Video.lookup` or `Channel.lookup`, which respectively return `YoutubeArchiver::Video` and `YoutubeArchiver::Channel` objects. These psuedo JSON object store video/channel metadata and media. 
 
-`YoutubeArchiver` differs from the other scrapers in how it acquires  media and metadata for a video or channel lookup. `YoutubeArchiver` uses [yt-dlp](https://github.com/yt-dlp/yt-dlp) to download video media files. To download video and channel metadata, the project uses the [YouTube Data API V3](https://developers.google.com/youtube/v3), specifically its [Videos: list](https://developers.google.com/youtube/v3/docs/videos/list) and [Channels: list](https://developers.google.com/youtube/v3/docs/channels/list) endpoints. 
+`YoutubeArchiver` differs from the other scrapers in how it acquires  media and metadata for a video or channel lookup. `YoutubeArchiver` uses [yt-dlp](https://github.com/yt-dlp/yt-dlp) to download video media files and the [YouTube Data API V3](https://developers.google.com/youtube/v3) to download channel and video metadata. For now, the project pecifically uses the API's [Videos: list](https://developers.google.com/youtube/v3/docs/videos/list) and [Channels: list](https://developers.google.com/youtube/v3/docs/channels/list) endpoints. 
 
 # Setup
 
