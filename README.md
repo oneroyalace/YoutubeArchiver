@@ -17,6 +17,8 @@ gem 'youtubearchiver'
 And then execute:
 
     $ bundle install
+## Requirements
+`YoutubeArchiver` uses yt-dlp to download Youtube Videos. Installation instructions for the project can be found [here](https://github.com/yt-dlp/yt-dlp#installation). 
 
 # Setup
 
