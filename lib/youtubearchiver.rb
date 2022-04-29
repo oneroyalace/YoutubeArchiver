@@ -14,7 +14,26 @@ require_relative "youtubearchiver/channel"
 module YoutubeArchiver
   extend Configuration
 
-  class Error < StandardError; end
+  class Error < StandardError
+    def initialize(msg = "Encountered an error scraping YouTube")
+      super
+    end
+  end
+
+  class RetryableError < StandardError; end
+
+  class YoutubeApiError < RetryableError
+    def initialize(msg = "Encountered a downstream YouTube API error")
+      super
+    end
+  end
+
+  class VideoDownloadError < RetryableError
+    def initialize(msg = "Encountered an error during video downloading")
+      super
+    end
+  end
+
   class AuthorizationError < Error; end
   class VideoNotFoundError < Error; end
   class ChannelNotFoundError < Error; end

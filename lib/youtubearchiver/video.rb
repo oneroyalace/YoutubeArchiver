@@ -10,7 +10,6 @@ module YoutubeArchiver
     def self.lookup(ids = [])
       ids = [ids] unless ids.is_a?(Array)
 
-      # ids.each { |id| raise YoutubeArchiver::InvalidIdError unless /\A\d+\z/.match(id) }
       response = retrieve_data(ids)
       raise YoutubeArchiver::AuthorizationError, "Invalid response code #{response.code}" unless response.code == 200
 
@@ -69,6 +68,8 @@ module YoutubeArchiver
                url: "https://www.youtube.com/watch?v=#{@id}")
       puts "Finished downloading video #{@id} @ #{Time.now}"
       filename
+    rescue
+      raise VideoDownloadError # Retryable error
     end
 
     def self.retrieve_data(ids)
@@ -81,7 +82,6 @@ module YoutubeArchiver
       }
 
       response = video_lookup(youtube_base_url, params)
-      raise YoutubeArchiver::AuthorizationError, "Invalid response code #{response.code}" unless response.code == 200
 
       response
     end
@@ -94,7 +94,8 @@ module YoutubeArchiver
 
       request = Typhoeus::Request.new(url, options)
       response = request.run
-      raise YoutubeArchiver::AuthorizationError, "Invalid response code #{response.code}" unless response.code == 200
+      raise YoutubeArchiver::YoutubeApiError, "Invalid response code #{response.code}" if response.code > 500 # Retryable (downstream) error
+      raise YoutubeArchiver::AuthorizationError, "Invalid response code #{response.code}" if response.code > 400
 
       response
     end
