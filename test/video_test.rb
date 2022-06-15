@@ -52,16 +52,11 @@ class VideoTest < MiniTest::Test
   end
 
   def test_raises_exception_for_unavailable_videos
-
-    # Video types: 
+    # Video types:
     # 1. "This vieo isn't available anymore"
     # 2. Video doesn't exist (nonsense id):GF
     # 3. Private video
-    video_ids = %w[Tp-k4WQPp2Y
-                   abcde12345
-                   6nKh5zAYBic]
-    assert_raises YoutubeArchiver::VideoNotFoundError do
-      YoutubeArchiver::Video.lookup("abcde12345")
-    end
+
+    assert_equal [], YoutubeArchiver::Video.lookup("abcde12345")
   end
 end

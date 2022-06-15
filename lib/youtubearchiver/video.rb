@@ -8,6 +8,7 @@ require "terrapin"
 module YoutubeArchiver
   class Video
     def self.lookup(ids = [])
+      # raise YoutubeArchiver::YoutubeApiError if rand > 0.5 # randomly raises a RetryableError
       ids = [ids] unless ids.is_a?(Array)
 
       response = retrieve_data(ids)
@@ -17,6 +18,8 @@ module YoutubeArchiver
       raise YoutubeArchiver::VideoNotFoundError if json_response["items"].empty?
 
       json_response["items"].map { |json_video| Video.new(json_video) }
+    rescue YoutubeArchiver::VideoNotFoundError
+      []
     end
 
     attr_reader :json
@@ -94,6 +97,7 @@ module YoutubeArchiver
 
       request = Typhoeus::Request.new(url, options)
       response = request.run
+
       raise YoutubeArchiver::YoutubeApiError, "Invalid response code #{response.code}" if response.code > 500 # Retryable (downstream) error
       raise YoutubeArchiver::AuthorizationError, "Invalid response code #{response.code}" if response.code > 400
 
