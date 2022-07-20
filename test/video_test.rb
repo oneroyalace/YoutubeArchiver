@@ -20,6 +20,7 @@ class VideoTest < MiniTest::Test
     assert_equal youtube_video.language, "en-US"
     assert_equal youtube_video.channel.id, "UCyPVt0WxkrpUXOVUq0Hqtxw"
     assert_not_nil youtube_video.channel
+    assert_nil youtube_video.screenshot_file
 
     assert youtube_video.num_views.to_i > 40_000
     assert youtube_video.num_likes.to_i > 3_000

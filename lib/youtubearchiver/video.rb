@@ -36,6 +36,7 @@ module YoutubeArchiver
     attr_reader :video_file
     attr_reader :made_for_kids
     attr_reader :channel
+    attr_reader :screenshot_file
 
     def initialize(json_video)
       @json = json_video
@@ -57,6 +58,7 @@ module YoutubeArchiver
       @video_file = download_video
       @made_for_kids = json_video["status"]["madeForKids"]
       @channel = Channel.lookup(@channel_id).first
+      @screenshot_file = nil
     end
 
     def download_video
