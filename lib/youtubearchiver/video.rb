@@ -36,7 +36,7 @@ module YoutubeArchiver
     attr_reader :video_file
     attr_reader :made_for_kids
     attr_reader :channel
-    attr_reader :screenshot_file
+    attr_accessor :screenshot_file # written in hypatia
 
     def initialize(json_video)
       @json = json_video
