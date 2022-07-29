@@ -17,7 +17,7 @@ module YoutubeArchiver
       json_response = JSON.parse(response.body)
       raise YoutubeArchiver::VideoNotFoundError if json_response["items"].empty?
 
-      json_response["items"].map { |json_video| Video.new(json_video) }
+      json_response["items"].map { |video_hash| Video.new(video_hash) }
     rescue YoutubeArchiver::VideoNotFoundError
       []
     end
@@ -38,25 +38,25 @@ module YoutubeArchiver
     attr_reader :channel
     attr_accessor :screenshot_file # written in hypatia
 
-    def initialize(json_video)
-      @json = json_video
-      parse(json_video)
+    def initialize(video_hash)
+      @json = video_hash
+      parse(video_hash)
     end
 
-    def parse(json_video)
-      @id = json_video["id"]
-      @created_at = json_video["snippet"]["publishedAt"]
-      @title = json_video["snippet"]["title"]
-      @channel_id = json_video["snippet"]["channelId"]
-      @language = json_video["snippet"]["defaultAudioLanguage"]
-      @duration = json_video["contentDetails"]["duration"]
-      @live = json_video["snippet"]["liveBroadcastContent"] == "live"
-      @num_views = json_video["statistics"]["viewCount"]
-      @num_likes = json_video["statistics"]["likeCount"]
-      @num_comments = json_video["statistics"]["commentCount"]
-      @video_preview_image_file = YoutubeArchiver.retrieve_media(json_video["snippet"]["thumbnails"]["high"]["url"])
+    def parse(video_hash)
+      @id = video_hash["id"]
+      @created_at = video_hash["snippet"]["publishedAt"]
+      @title = video_hash["snippet"]["title"]
+      @channel_id = video_hash["snippet"]["channelId"]
+      @language = video_hash["snippet"]["defaultAudioLanguage"]
+      @duration = video_hash["contentDetails"]["duration"]
+      @live = video_hash["snippet"]["liveBroadcastContent"] == "live"
+      @num_views = video_hash["statistics"]["viewCount"]
+      @num_likes = video_hash["statistics"]["likeCount"]
+      @num_comments = video_hash["statistics"]["commentCount"]
+      @video_preview_image_file = YoutubeArchiver.retrieve_media(video_hash["snippet"]["thumbnails"]["high"]["url"])
       @video_file = download_video
-      @made_for_kids = json_video["status"]["madeForKids"]
+      @made_for_kids = video_hash["status"]["madeForKids"]
       @channel = Channel.lookup(@channel_id).first
       @screenshot_file = nil
     end
