@@ -8,6 +8,7 @@ class VideoTest < MiniTest::Test
     cleanup_temp_folder
   end
 
+
   def test_that_a_scraped_youtube_video_has_proper_attributes
     youtube_video = YoutubeArchiver::Video.lookup("T3UVKJsTz5g").first
 
@@ -53,11 +54,6 @@ class VideoTest < MiniTest::Test
   end
 
   def test_raises_exception_for_unavailable_videos
-    # Video types:
-    # 1. "This vieo isn't available anymore"
-    # 2. Video doesn't exist (nonsense id):GF
-    # 3. Private video
-
     assert_equal [], YoutubeArchiver::Video.lookup("abcde12345")
   end
 end
