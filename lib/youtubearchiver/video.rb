@@ -8,9 +8,10 @@ require "terrapin"
 module YoutubeArchiver
   @@youtube_logger = Logger.new(STDOUT)
   @@youtube_logger.level = Logger::INFO
+  @@youtube_logger.datetime_format = "%Y-%m-%d %H:%M:%S"
+
   class Video
     def self.lookup(ids = [])
-      # raise YoutubeArchiver::YoutubeApiError if rand > 0.5 # randomly raises a RetryableError
       ids = [ids] unless ids.is_a?(Array)
 
       response = retrieve_data(ids)
