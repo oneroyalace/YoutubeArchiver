@@ -64,7 +64,7 @@ module YoutubeArchiver
     def download_video
       return if @live
 
-      filename = "#{YoutubeArchiver.temp_storage_location}/#{SecureRandom.uuid}.mp4"
+      filename = "#{YoutubeArchiver.temp_storage_location}/youtube_media_#{SecureRandom.uuid}.mp4"
       line = Terrapin::CommandLine.new("yt-dlp", "-f :filetype -o :filename :url")
 
       puts "Downloading video #{@id} @ #{Time.now}"
