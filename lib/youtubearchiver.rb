@@ -52,7 +52,7 @@ module YoutubeArchiver
       extension = ".#{extension}" unless extension.nil?
     end
 
-    temp_file_name = "#{YoutubeArchiver.temp_storage_location}/#{SecureRandom.uuid}#{extension}"
+    temp_file_name = "#{YoutubeArchiver.temp_storage_location}/youtube_media_#{SecureRandom.uuid}#{extension}"
 
     # We do this in case the folder isn't created yet, since it's a temp folder we'll just do so
     create_temp_storage_location
