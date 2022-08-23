@@ -36,6 +36,7 @@ module YoutubeArchiver
     attr_reader :video_file
     attr_reader :made_for_kids
     attr_reader :channel
+    attr_reader :user
     attr_accessor :screenshot_file # written in hypatia
 
     def initialize(video_hash)
@@ -58,6 +59,7 @@ module YoutubeArchiver
       @video_file = download_video
       @made_for_kids = video_hash["status"]["madeForKids"]
       @channel = Channel.lookup(@channel_id).first
+      @user = @channel # Yes, a Youtube User is technically different than a YouTube channel, but we can ignore that to fit with our existing taxonomy
       @screenshot_file = nil
     end
 
