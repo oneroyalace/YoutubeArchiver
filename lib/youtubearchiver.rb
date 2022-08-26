@@ -44,7 +44,9 @@ module YoutubeArchiver
     response = Typhoeus.get(url)
 
     # Get the file extension if it's in the file
-    extension = url.split(".").last
+    stripped_url = url.split("?").first  # remove URL query params
+    extension = stripped_url.split(".").last
+
     # Do some basic checks so we just empty out if there's something weird in the file extension
     # that could do some harm.
     unless extension.empty?
