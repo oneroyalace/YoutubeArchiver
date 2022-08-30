@@ -59,7 +59,7 @@ module YoutubeArchiver
       @video_file = download_video
       @made_for_kids = video_hash["status"]["madeForKids"]
       @channel = Channel.lookup(@channel_id).first
-      @user = @channel # Yes, a Youtube User is technically different than a YouTube channel, but we can ignore that to fit with our existing taxonomy
+      @user = @channel # Yes, a Youtube User is technically different than a YouTube channel, but we can ignore that.
       @screenshot_file = nil
     end
 

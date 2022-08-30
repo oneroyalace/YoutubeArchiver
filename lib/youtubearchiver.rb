@@ -40,12 +40,12 @@ module YoutubeArchiver
 
   define_setting :temp_storage_location, "tmp/youtubearchiver"
 
-  def self.retrieve_media(url)
+  def self.retrieve_media(url, extension = nil)
     response = Typhoeus.get(url)
 
     # Get the file extension if it's in the file
-    stripped_url = url.split("?").first  # remove URL query params
-    extension = stripped_url.split(".").last
+    stripped_url = url.split("?").first
+    extension = stripped_url.split(".").last if extension.nil?
 
     # Do some basic checks so we just empty out if there's something weird in the file extension
     # that could do some harm.
