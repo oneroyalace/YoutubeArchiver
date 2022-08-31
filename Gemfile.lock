@@ -118,7 +118,7 @@ PLATFORMS
 
 DEPENDENCIES
   byebug
-  minitest (~> 5.15.0)
+  minitest (= 5.15.0)
   rake (~> 13.0)
   rubocop (~> 1.7)
   rubocop-rails

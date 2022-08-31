@@ -9,7 +9,7 @@ gemspec
 
 gem "rake", "~> 13.0"
 
-gem "minitest", "~> 5.15.0"
+gem "minitest", "5.15.0"
 
 gem "rubocop", "~> 1.7", require: false
 gem "rubocop-rails", require: false # Rails specific styles
