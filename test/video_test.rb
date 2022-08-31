@@ -42,6 +42,7 @@ class VideoTest < MiniTest::Test
   end
 
   def test_handles_live_youtube_videos
+    skip
     youtube_video = YoutubeArchiver::Video.lookup("nDDzUyGvloE").first
 
     assert_instance_of YoutubeArchiver::Video, youtube_video
