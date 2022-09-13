@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require "byebug"
 require "securerandom"
 
 module YoutubeArchiver
@@ -35,7 +34,7 @@ module YoutubeArchiver
       @subscriber_count = json_channel["statistics"]["subscriberCount"]
       @video_count = json_channel["statistics"]["videoCount"]
       @made_for_kids = json_channel["status"]["madeForKids"]
-      @channel_image_file = YoutubeArchiver.retrieve_media(json_channel["snippet"]["thumbnails"]["high"]["url"])
+      @channel_image_file = YoutubeArchiver.retrieve_media(json_channel["snippet"]["thumbnails"]["high"]["url"], "jpg")
     end
 
     def self.retrieve_data(ids)

@@ -19,8 +19,9 @@ class VideoTest < MiniTest::Test
     assert_not youtube_video.live
     assert_equal youtube_video.duration, "PT10S"
     assert_equal youtube_video.language, "en-US"
-    assert_equal youtube_video.channel.id, "UCyPVt0WxkrpUXOVUq0Hqtxw"
     assert_not_nil youtube_video.channel
+    assert_equal youtube_video.channel.id, "UCyPVt0WxkrpUXOVUq0Hqtxw"
+    assert_equal youtube_video.channel, youtube_video.user
     assert_nil youtube_video.screenshot_file
 
     assert youtube_video.num_views.to_i > 40_000
@@ -42,7 +43,7 @@ class VideoTest < MiniTest::Test
   end
 
   def test_handles_live_youtube_videos
-    skip
+    skip "need to find a new live video of reasonable length"
     youtube_video = YoutubeArchiver::Video.lookup("nDDzUyGvloE").first
 
     assert_instance_of YoutubeArchiver::Video, youtube_video
