@@ -44,7 +44,7 @@ module YoutubeArchiver
 
   define_setting :temp_storage_location, "tmp/youtubearchiver"
 
-  def self.retrieve_media(url)
+  def self.retrieve_media(url, extension = nil)
     @@youtube_logger.info("YoutubeArchiver started downloading media at URL: #{url}")
     start_time = Time.now
 
