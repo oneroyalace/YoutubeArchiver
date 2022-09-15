@@ -50,7 +50,7 @@ module YoutubeArchiver
       @title = video_hash["snippet"]["title"]
       @channel_id = video_hash["snippet"]["channelId"]
       @language = video_hash["snippet"]["defaultAudioLanguage"]
-      @duration = video_hash["contentDetails"]["duration"]
+      @duration = Video.convert_video_length_to_seconds(video_hash["contentDetails"]["duration"])
       @live = video_hash["snippet"]["liveBroadcastContent"] == "live"
       @num_views = video_hash["statistics"]["viewCount"]
       @num_likes = video_hash["statistics"]["likeCount"]
@@ -106,6 +106,16 @@ module YoutubeArchiver
       raise YoutubeArchiver::AuthorizationError, "Invalid response code #{response.code}" if response.code > 400
 
       response
+    end
+
+    # Convert a YouTube duration string to number of seconds
+    # A duration string of "PT0H4M32S" signifies a length of 4 minutes and 32 seconds
+    def self.convert_video_length_to_seconds(duration_string)
+      if /PT((\d+)H)?((\d+)M)?((\d+)S)?/ =~ duration_string  # Use regex to capture num_hours, num_minutes, num_seconds
+        $2.to_i * 3600 + $4.to_i * 60 + $6.to_i # To convert to seconds, sum(num_hours*3600, num_minutes*60, num_seconds*1)
+      else
+        0
+      end
     end
   end
 end
