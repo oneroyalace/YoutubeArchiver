@@ -1,14 +1,17 @@
 # frozen_string_literal: true
 
 require "securerandom"
-
+require "logger"
 require "byebug"
 require "terrapin"
 
 module YoutubeArchiver
   class Video
+    @@youtube_logger = Logger.new(STDOUT)
+    @@youtube_logger.level = Logger::INFO
+    @@youtube_logger.datetime_format = "%Y-%m-%d %H:%M:%S"
+
     def self.lookup(ids = [])
-      # raise YoutubeArchiver::YoutubeApiError if rand > 0.5 # randomly raises a RetryableError
       ids = [ids] unless ids.is_a?(Array)
 
       response = retrieve_data(ids)
@@ -66,16 +69,22 @@ module YoutubeArchiver
     def download_video
       return if @live
 
+      @@youtube_logger.info("YoutubeArchiver started downloading video with id: #{@id}")
+
+      start_time = Time.now
       filename = "#{YoutubeArchiver.temp_storage_location}/youtube_media_#{SecureRandom.uuid}.mp4"
       line = Terrapin::CommandLine.new("yt-dlp", "-f :filetype -o :filename :url")
 
-      puts "Downloading video #{@id} @ #{Time.now}"
       line.run(filename:,
                filetype: "mp4",
                url: "https://www.youtube.com/watch?v=#{@id}")
-      puts "Finished downloading video #{@id} @ #{Time.now}"
+
+      @@youtube_logger.info("YoutubeArchiver finished downloading video with id: #{@id}")
+      @@youtube_logger.info("Save location: #{filename}")
+      @@youtube_logger.info("Time to download: #{(Time.now - start_time).round(3)} seconds")
+
       filename
-    rescue
+    rescue Terrapin::ExitStatusError # yt-dlp command returns a non-zero exit status
       raise VideoDownloadError # Retryable error
     end
 
