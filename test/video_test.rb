@@ -42,9 +42,9 @@ class VideoTest < MiniTest::Test
     assert_equal youtube_video.channel.id, "UCWheC07UYzRWXsv9yUnZJFw"
   end
 
+  # Make sure we don't try to download an active live stream
   def test_handles_live_youtube_videos
-    skip "need to find a new live video of reasonable length"
-    youtube_video = YoutubeArchiver::Video.lookup("nDDzUyGvloE").first
+    youtube_video = YoutubeArchiver::Video.lookup("21X5lGlDOfg").first
 
     assert_instance_of YoutubeArchiver::Video, youtube_video
     assert youtube_video.live
@@ -52,7 +52,7 @@ class VideoTest < MiniTest::Test
     assert_nil youtube_video.video_file
 
     assert_not_nil youtube_video.channel
-    assert_equal youtube_video.channel.id, "UCGv9D6jI_5qb12RzoEU4aEA"
+    assert_equal "UCLA_DiR1FfKNvjuUpBHmylQ", youtube_video.channel.id
   end
 
   def test_raises_exception_for_unavailable_videos
