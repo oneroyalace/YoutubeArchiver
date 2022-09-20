@@ -44,23 +44,24 @@ module YoutubeArchiver
 
   define_setting :temp_storage_location, "tmp/youtubearchiver"
 
+  def self.extract_file_extension_from_url(url)
+    stripped_url = url.split("?").first # remove URL query params
+    extension = stripped_url.split(".").last if extension.nil?
+
+    # Do some basic checks so we just empty out if there's something weird in the file extension
+    # that could do some harm.
+    extension = nil unless /^[a-zA-Z0-9]+$/.match?(extension)
+    extension = ".#{extension}" unless extension.nil?
+    extension
+  end
+
   def self.retrieve_media(url, extension = nil)
     @@youtube_logger.info("YoutubeArchiver started downloading media at URL: #{url}")
     start_time = Time.now
 
     response = Typhoeus.get(url)
 
-    # Get the file extension if it's in the file
-    stripped_url = url.split("?").first
-    extension = stripped_url.split(".").last if extension.nil?
-
-    # Do some basic checks so we just empty out if there's something weird in the file extension
-    # that could do some harm.
-    unless extension.empty?
-      extension = nil unless /^[a-zA-Z0-9]+$/.match?(extension)
-      extension = ".#{extension}" unless extension.nil?
-    end
-
+    extension = YoutubeArchiver.extract_file_extension_from_url(url)
     temp_file_name = "#{YoutubeArchiver.temp_storage_location}/youtube_media_#{SecureRandom.uuid}#{extension}"
 
     # We do this in case the folder isn't created yet, since it's a temp folder we'll just do so
