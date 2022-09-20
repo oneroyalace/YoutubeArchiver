@@ -17,10 +17,10 @@ class VideoTest < MiniTest::Test
     assert_equal youtube_video.id, "T3UVKJsTz5g"
     assert_equal youtube_video.title, "Reviewing Injury Reserve's By the Time I Get to Phoenix in 10 seconds or less"
     assert_not youtube_video.live
-    assert_equal youtube_video.duration, "PT10S"
+    assert_equal youtube_video.duration, 10
     assert_equal youtube_video.language, "en-US"
     assert_not_nil youtube_video.channel
-    assert_equal youtube_video.channel.id, "UCyPVt0WxkrpUXOVUq0Hqtxw"
+    assert_equal "UCyPVt0WxkrpUXOVUq0Hqtxw", youtube_video.channel.id
     assert_equal youtube_video.channel, youtube_video.user
     assert_nil youtube_video.screenshot_file
 
@@ -39,7 +39,7 @@ class VideoTest < MiniTest::Test
     assert_not_nil youtube_video.title
 
     assert_not_nil youtube_video.channel
-    assert_equal youtube_video.channel.id, "UCWheC07UYzRWXsv9yUnZJFw"
+    assert_equal "UCWheC07UYzRWXsv9yUnZJFw", youtube_video.channel.id
   end
 
   # Make sure we don't try to download an active live stream
