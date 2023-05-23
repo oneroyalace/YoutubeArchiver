@@ -69,7 +69,7 @@ module YoutubeArchiver
     def download_video
       return if @live
 
-      @@youtube_logger.info("YoutubeArchiver started downloading video with id: #{@id}")
+      @@youtube_logger.debug("YoutubeArchiver started downloading video with id: #{@id}")
 
       start_time = Time.now
       filename = "#{YoutubeArchiver.temp_storage_location}/youtube_media_#{SecureRandom.uuid}.mp4"
@@ -79,13 +79,13 @@ module YoutubeArchiver
                filetype: "mp4",
                url: "https://www.youtube.com/watch?v=#{@id}")
 
-      @@youtube_logger.info("YoutubeArchiver finished downloading video with id: #{@id}")
-      @@youtube_logger.info("Save location: #{filename}")
-      @@youtube_logger.info("Time to download: #{(Time.now - start_time).round(3)} seconds")
+      @@youtube_logger.debug("YoutubeArchiver finished downloading video with id: #{@id}")
+      @@youtube_logger.debug("Save location: #{filename}")
+      @@youtube_logger.debug("Time to download: #{(Time.now - start_time).round(3)} seconds")
 
       filename
-    rescue Terrapin::ExitStatusError # yt-dlp command returns a non-zero exit status
-      raise VideoDownloadError # Retryable error
+    rescue Terrapin::ExitStatusError => e # yt-dlp command returns a non-zero exit status
+      raise VideoDownloadError.new(e.message) # Retryable error
     end
 
     def self.retrieve_data(ids)

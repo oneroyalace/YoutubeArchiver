@@ -56,7 +56,7 @@ module YoutubeArchiver
   end
 
   def self.retrieve_media(url, extension = nil)
-    @@youtube_logger.info("YoutubeArchiver started downloading media at URL: #{url}")
+    @@youtube_logger.debug("YoutubeArchiver started downloading media at URL: #{url}")
     start_time = Time.now
 
     response = Typhoeus.get(url)
@@ -68,9 +68,9 @@ module YoutubeArchiver
     create_temp_storage_location
     File.binwrite(temp_file_name, response.body)
 
-    @@youtube_logger.info("YoutubeArchiver finished downloading media at URL: #{url}")
-    @@youtube_logger.info("Save location: #{temp_file_name}")
-    @@youtube_logger.info("Time to download: #{(Time.now - start_time).round(3)} seconds")
+    @@youtube_logger.debug("YoutubeArchiver finished downloading media at URL: #{url}")
+    @@youtube_logger.debug("Save location: #{temp_file_name}")
+    @@youtube_logger.debug("Time to download: #{(Time.now - start_time).round(3)} seconds")
 
     temp_file_name
   end

@@ -14,7 +14,7 @@ class ChannelTest < MiniTest::Test
     assert_instance_of YoutubeArchiver::Channel, youtube_channel
 
     assert_equal youtube_channel.id, "UC_x5XG1OV2P6uZZ5FSM9Ttw"
-    assert_equal youtube_channel.title, "Google Developers"
+    assert_equal "Google for Developers", youtube_channel.title
     assert_not_nil youtube_channel.description
 
     assert youtube_channel.view_count.to_i > 100_000_000
