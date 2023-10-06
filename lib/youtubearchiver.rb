@@ -5,6 +5,7 @@ require "typhoeus"
 require "byebug"
 require "securerandom"
 require "helpers/configuration"
+require "dotenv/load"
 
 require "fileutils"
 require_relative "youtubearchiver/version"
