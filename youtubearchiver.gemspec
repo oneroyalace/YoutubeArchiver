@@ -29,7 +29,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   # Uncomment to register a new dependency of your gem
-  spec.add_dependency "terrapin", "~> 0.6"
+  spec.add_dependency "terrapin", "~> 1.0"
   spec.add_dependency "typhoeus", "~> 1.4"
 
   # For more information and examples about making a new gem, checkout our

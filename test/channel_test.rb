@@ -3,7 +3,7 @@
 require "test_helper"
 require "date"
 
-class ChannelTest < MiniTest::Test
+class ChannelTest < Minitest::Test
   def teardown
     cleanup_temp_folder
   end

@@ -3,7 +3,7 @@
 require "test_helper"
 require "date"
 
-class VideoTest < MiniTest::Test
+class VideoTest < Minitest::Test
   def teardown
     cleanup_temp_folder
   end
