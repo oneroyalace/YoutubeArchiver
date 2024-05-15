@@ -21,8 +21,8 @@ module YoutubeArchiver
       raise YoutubeArchiver::VideoNotFoundError if json_response["items"].empty?
 
       json_response["items"].map { |video_hash| Video.new(video_hash) }
-    rescue YoutubeArchiver::VideoNotFoundError
-      []
+    # rescue YoutubeArchiver::VideoNotFoundError
+    #   []
     end
 
     attr_reader :json

@@ -13,7 +13,7 @@ class ChannelTest < Minitest::Test
 
     assert_instance_of YoutubeArchiver::Channel, youtube_channel
 
-    assert_equal youtube_channel.id, "UC_x5XG1OV2P6uZZ5FSM9Ttw"
+    assert_equal "UC_x5XG1OV2P6uZZ5FSM9Ttw", youtube_channel.id
     assert_equal "Google for Developers", youtube_channel.title
     assert_not_nil youtube_channel.description
 

@@ -56,6 +56,13 @@ class VideoTest < Minitest::Test
   end
 
   def test_raises_exception_for_unavailable_videos
-    assert_equal [], YoutubeArchiver::Video.lookup("abcde12345")
+    assert_raises YoutubeArchiver::VideoNotFoundError do
+      YoutubeArchiver::Video.lookup("abcde12345")
+    end
+  end
+
+  def test_other_url
+    youtube_video = YoutubeArchiver::Video.lookup("fNQQ14k0LGw").first
+    assert_instance_of YoutubeArchiver::Video, youtube_video
   end
 end
